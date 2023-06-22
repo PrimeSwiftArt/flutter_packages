@@ -43,6 +43,7 @@ class CameraValue {
     required this.isTakingPicture,
     required this.isStreamingImages,
     required bool isRecordingPaused,
+    this.fieldOfView,
     required this.flashMode,
     required this.exposureMode,
     required this.focusMode,
@@ -118,6 +119,9 @@ class CameraValue {
   /// When true [errorDescription] describes the error.
   bool get hasError => errorDescription != null;
 
+  /// The field of view in degrees
+  final double? fieldOfView;
+
   /// The flash mode the camera is currently set to.
   final FlashMode flashMode;
 
@@ -160,6 +164,7 @@ class CameraValue {
     String? errorDescription,
     Size? previewSize,
     bool? isRecordingPaused,
+    double? fieldOfView,
     FlashMode? flashMode,
     ExposureMode? exposureMode,
     FocusMode? focusMode,
@@ -180,6 +185,7 @@ class CameraValue {
       isTakingPicture: isTakingPicture ?? this.isTakingPicture,
       isStreamingImages: isStreamingImages ?? this.isStreamingImages,
       isRecordingPaused: isRecordingPaused ?? _isRecordingPaused,
+      fieldOfView: fieldOfView ?? this.fieldOfView,
       flashMode: flashMode ?? this.flashMode,
       exposureMode: exposureMode ?? this.exposureMode,
       focusMode: focusMode ?? this.focusMode,
@@ -209,6 +215,7 @@ class CameraValue {
         'errorDescription: $errorDescription, '
         'previewSize: $previewSize, '
         'isStreamingImages: $isStreamingImages, '
+        'fieldOfView: $fieldOfView'
         'flashMode: $flashMode, '
         'exposureMode: $exposureMode, '
         'focusMode: $focusMode, '
@@ -645,6 +652,18 @@ class CameraController extends ValueNotifier<CameraValue> {
     _throwIfNotInitialized('setZoomLevel');
     try {
       return CameraPlatform.instance.setZoomLevel(_cameraId, zoom);
+    } on PlatformException catch (e) {
+      throw CameraException(e.code, e.message);
+    }
+  }
+
+  /// Gets the field of view in degrees
+  Future<double?> getFieldOfView() async {
+    try {
+      final fieldOfView =
+          await CameraPlatform.instance.getFieldOfView(_cameraId);
+      value = value.copyWith(fieldOfView: fieldOfView);
+      return fieldOfView;
     } on PlatformException catch (e) {
       throw CameraException(e.code, e.message);
     }

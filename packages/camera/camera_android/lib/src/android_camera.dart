@@ -429,6 +429,13 @@ class AndroidCamera extends CameraPlatform {
   }
 
   @override
+  Future<double?> getFieldOfView(int cameraId) =>
+      _channel.invokeMethod<double?>(
+        'getFieldOfView',
+        <String, dynamic>{'cameraId': cameraId},
+      );
+
+  @override
   Future<void> setFocusMode(int cameraId, FocusMode mode) =>
       _channel.invokeMethod<void>(
         'setFocusMode',

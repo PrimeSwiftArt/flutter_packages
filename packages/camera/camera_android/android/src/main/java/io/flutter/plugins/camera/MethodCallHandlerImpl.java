@@ -221,6 +221,15 @@ final class MethodCallHandlerImpl implements MethodChannel.MethodCallHandler {
           }
           break;
         }
+      case "getFieldOfView":
+        {
+          try {
+            result.success(camera.getFieldOfView());
+          } catch (Exception e) {
+            handleException(e, result);
+          }
+          break;
+        }
       case "setFocusMode":
         {
           String modeStr = call.argument("mode");

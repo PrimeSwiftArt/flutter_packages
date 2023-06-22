@@ -12,6 +12,8 @@ import android.os.Build.VERSION_CODES;
 import android.util.Range;
 import android.util.Rational;
 import android.util.Size;
+import android.util.SizeF;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
@@ -92,6 +94,11 @@ public class CameraPropertiesImpl implements CameraProperties {
     return cameraCharacteristics.get(CameraCharacteristics.LENS_FACING);
   }
 
+  @Override
+  public float[] getLensInfoAvailableFocalLengths() {
+    return cameraCharacteristics.get(CameraCharacteristics.LENS_INFO_AVAILABLE_FOCAL_LENGTHS);
+  }
+
   @Nullable
   @Override
   public Float getLensInfoMinimumFocusDistance() {
@@ -126,6 +133,12 @@ public class CameraPropertiesImpl implements CameraProperties {
       return range.getLower();
     }
     return null;
+  }
+
+  @NonNull
+  @Override
+  public SizeF getSensorInfoPhysicalSize() {
+    return cameraCharacteristics.get(CameraCharacteristics.SENSOR_INFO_PHYSICAL_SIZE);
   }
 
   @NonNull

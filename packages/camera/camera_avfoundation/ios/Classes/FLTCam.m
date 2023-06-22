@@ -742,6 +742,12 @@ NSString *const errorMethod = @"error";
   [result sendSuccess];
 }
 
+- (void)getFieldOfViewWithResult:(FLTThreadSafeFlutterResult *)result {
+  CGFloat fieldOfView = [self getFieldOfView];
+
+  [result sendSuccessWithData:[NSNumber numberWithFloat:fieldOfView]];
+}
+
 - (void)setFlashModeWithResult:(FLTThreadSafeFlutterResult *)result mode:(NSString *)modeStr {
   FLTFlashMode mode;
   @try {
@@ -1070,6 +1076,10 @@ NSString *const errorMethod = @"error";
   [_captureDevice unlockForConfiguration];
 
   [result sendSuccess];
+}
+
+- (CGFloat)getFieldOfView {
+  return _captureDevice.activeFormat.videoFieldOfView;
 }
 
 - (CGFloat)getMinAvailableZoomFactor {

@@ -31,6 +31,7 @@ import android.os.HandlerThread;
 import android.os.Looper;
 import android.util.Log;
 import android.util.Size;
+import android.util.SizeF;
 import android.view.Display;
 import android.view.Surface;
 import androidx.annotation.NonNull;
@@ -911,6 +912,18 @@ class Camera
   /** Return the exposure offset step size to dart. */
   public double getExposureOffsetStepSize() {
     return cameraFeatures.getExposureOffset().getExposureOffsetStepSize();
+  }
+
+  /** Return the field of view in degrees to dart. */
+  @Nullable
+  public Double getFieldOfView() {
+    final SizeF size = cameraProperties.getSensorInfoPhysicalSize();
+    final float[] focalLengths = cameraProperties.getLensInfoAvailableFocalLengths();
+    if (focalLengths.length > 0) {
+      final double fov = 2 * Math.atan(size.getWidth() / (2 * focalLengths[0]));
+      return Math.toDegrees(fov);
+    }
+    return null;
   }
 
   /**

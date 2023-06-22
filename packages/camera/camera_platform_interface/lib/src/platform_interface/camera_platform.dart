@@ -176,6 +176,12 @@ abstract class CameraPlatform extends PlatformInterface {
     throw UnimplementedError('onStreamedFrameAvailable() is not implemented.');
   }
 
+  /// Gets the field of view for the selected camera.
+  /// On Web it is always null.
+  Future<double?> getFieldOfView(int cameraId) {
+    throw UnimplementedError('getFieldOfView() is not implemented.');
+  }
+
   /// Sets the flash mode for the selected camera.
   /// On Web [FlashMode.auto] corresponds to [FlashMode.always].
   Future<void> setFlashMode(int cameraId, FlashMode mode) {

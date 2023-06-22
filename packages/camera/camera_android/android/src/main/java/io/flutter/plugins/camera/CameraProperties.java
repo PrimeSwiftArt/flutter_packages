@@ -8,6 +8,8 @@ import android.graphics.Rect;
 import android.os.Build.VERSION_CODES;
 import android.util.Range;
 import android.util.Size;
+import android.util.SizeF;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
@@ -137,6 +139,23 @@ public interface CameraProperties {
   int getLensFacing();
 
   /**
+   * Returns list of focal lengths for android.lens.focalLength that are supported by this camera
+   * device.
+   *
+   * If optical zoom is not supported, this list will only contain a single value corresponding to
+   * the fixed focal length of the device. Otherwise, this list will include every focal length
+   * supported by the camera device, in ascending order.
+   *
+   * <p>By default maps to the @see
+   * android.hardware.camera2.CameraCharacteristics#LENS_INFO_AVAILABLE_FOCAL_LENGTHS key.
+   *
+   * @return float[] list of focal lengths for android.lens.focalLength that are supported by this
+   * camera device.
+   */
+  @Nullable
+  float[] getLensInfoAvailableFocalLengths();
+
+  /**
    * Returns the shortest distance from front most surface of the lens that can be brought into
    * sharp focus.
    *
@@ -187,6 +206,17 @@ public interface CameraProperties {
   @Nullable
   @RequiresApi(api = VERSION_CODES.R)
   Float getScalerMaxZoomRatio();
+
+  /**
+   * Returns the physical dimensions of the full pixel array..
+   *
+   * <p>By default maps to the @see
+   * android.hardware.camera2.CameraCharacteristics#SENSOR_INFO_PHYSICAL_SIZE key.
+   *
+   * @return android.util.SizeF physical size of the image sensor in millimeters.
+   */
+  @NonNull
+  SizeF getSensorInfoPhysicalSize();
 
   /**
    * Returns the area of the image sensor which corresponds to active pixels after any geometric

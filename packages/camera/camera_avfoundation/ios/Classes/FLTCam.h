@@ -65,6 +65,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)lockCaptureOrientationWithResult:(FLTThreadSafeFlutterResult *)result
                              orientation:(NSString *)orientationStr;
 - (void)unlockCaptureOrientationWithResult:(FLTThreadSafeFlutterResult *)result;
+- (void)getFieldOfViewWithResult:(FLTThreadSafeFlutterResult *)result;
 - (void)setFlashModeWithResult:(FLTThreadSafeFlutterResult *)result mode:(NSString *)modeStr;
 - (void)setExposureModeWithResult:(FLTThreadSafeFlutterResult *)result mode:(NSString *)modeStr;
 - (void)setFocusModeWithResult:(FLTThreadSafeFlutterResult *)result mode:(NSString *)modeStr;

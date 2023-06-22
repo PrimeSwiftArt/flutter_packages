@@ -356,6 +356,13 @@ class AVFoundationCamera extends CameraPlatform {
   }
 
   @override
+  Future<double?> getFieldOfView(int cameraId) =>
+      _channel.invokeMethod<double?>(
+        'getFieldOfView',
+        <String, dynamic>{'cameraId': cameraId},
+      );
+
+  @override
   Future<void> setFlashMode(int cameraId, FlashMode mode) =>
       _channel.invokeMethod<void>(
         'setFlashMode',
